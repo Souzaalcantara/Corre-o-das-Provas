@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Correção de Provas - CN7</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    fieldset { margin-bottom: 20px; }
+    .resultado { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Correção de Provas - Ciências 7º Ano</h1>
+  <p><strong>ID da Prova:</strong> <span id="prova-id"></span></p>
+  <form id="prova-form">
+    <fieldset>
+      <legend>1. Qual das estruturas está corretamente associada ao mecanismo de locomoção do peixe?</legend>
+      <label><input type="radio" name="q1" value="10"> A) Nadadeira</label><br/>
+      <label><input type="radio" name="q1" value="5"> B) Asas</label><br/>
+      <label><input type="radio" name="q1" value="3"> C) Pernas</label><br/>
+      <label><input type="radio" name="q1" value="8"> D) Flagelo</label>
+    </fieldset>
+    <fieldset>
+      <legend>2. Por que os vermes como a minhoca se locomovem por movimentos peristálticos?</legend>
+      <label><input type="radio" name="q2" value="3"> A) Patas</label><br/>
+      <label><input type="radio" name="q2" value="10"> B) Contrações musculares</label><br/>
+      <label><input type="radio" name="q2" value="8"> C) Cílios</label><br/>
+      <label><input type="radio" name="q2" value="5"> D) Asas</label>
+    </fieldset>
+    <fieldset>
+      <legend>3. Qual é a função do exoesqueleto na locomoção dos artrópodes?</legend>
+      <label><input type="radio" name="q3" value="5"> A) Proteção</label><br/>
+      <label><input type="radio" name="q3" value="10"> B) Sustentação e ponto de fixação</label><br/>
+      <label><input type="radio" name="q3" value="3"> C) Digestão</label><br/>
+      <label><input type="radio" name="q3" value="8"> D) Lubrificação</label>
+    </fieldset>
+    <!-- Questões 4 a 7 omitidas para exemplo, mas são iguais em estrutura -->
+
+    <button type="button" onclick="corrigir()">Corrigir</button>
+  </form>
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function corrigir() {
+      let total = 0;
+      let feedback = [];
+      for (let i = 1; i <= 3; i++) {
+        const options = document.getElementsByName("q" + i);
+        let val = 0;
+        for (const opt of options) {
+          if (opt.checked) val = parseInt(opt.value);
+        }
+        total += val;
+        feedback.push("Questão " + i + ": " + val + " pts");
+      }
+      document.getElementById("resultado").innerHTML = "Pontuação total: " + total + " pontos<br>" + feedback.join("<br>");
+    }
+
+    window.onload = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+      document.getElementById("prova-id").innerText = id ?? "Desconhecido";
+    }
+  </script>
+</body>
+</html>
